@@ -1,0 +1,82 @@
+import React from "react";
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
+import i18n from "i18n-js";
+import { Dimen, Colors } from "../../Utility/DimenAndColor/DimenAndColor";
+import { ConstantField } from "../../Utils/ConstantField";
+
+export default function GasStationAndOilAgencyFilter(props) {
+	const [Driver, setDriver] = React.useState(false);
+	const [gasStation, setGesStation] = React.useState(true);
+
+	return (
+		<View
+			style={{
+				flexDirection: ConstantField.IOS ? "row-reverse" : "row",
+				justifyContent: "space-between",
+				//marginStart: Dimen.Dim_80,
+				marginTop: 10,
+				marginBottom: 10,
+			}}
+		>
+			<TouchableWithoutFeedback
+				onPress={() => {
+					setGesStation(true);
+					setDriver(false);
+					props.OnGasStationPress();
+				}}
+			>
+				<View>
+					<Text
+						style={{
+							color: gasStation === true ? Colors.MainColor : Colors.HintTextColor,
+							fontSize: Dimen.NormalText2,
+							fontFamily: "product_sans_regular",
+						}}
+					>
+						{i18n.t("gasStation")}
+					</Text>
+					{gasStation ? (
+						<View
+							style={{
+								borderTopWidth: 1,
+								borderColor: Colors.MainColor,
+								marginTop: 2,
+							}}
+						/>
+					) : null}
+				</View>
+			</TouchableWithoutFeedback>
+			<TouchableWithoutFeedback
+				onPress={() => {
+					setGesStation(false);
+					setDriver(true);
+					props.OnDriverOilAgencyPress();
+				}}
+			>
+				<View>
+					<Text
+						style={{
+							color: Driver === true ? Colors.MainColor : Colors.HintTextColor,
+							fontSize: Dimen.NormalText2,
+							fontFamily: "product_sans_regular",
+							marginStart: Dimen.Dim_10,
+						}}
+					>
+						{i18n.t("driverOrOilAgency")}
+					</Text>
+					{Driver ? (
+						<View
+							style={{
+								borderTopWidth: 1,
+								borderColor: Colors.MainColor,
+								marginTop: 2,
+							}}
+						/>
+					) : null}
+				</View>
+			</TouchableWithoutFeedback>
+		</View>
+	);
+}
+
+const styles = StyleSheet.create({});
